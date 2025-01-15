@@ -1,0 +1,84 @@
+﻿@page
+@model TraceLink.Pages.Tagging.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TagDetails[0].VehicleNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TagDetails[0].ChasisNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TagDetails[0].Rto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TagDetails[0].DeviceIMEI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TagDetails[0].DeviceUID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TagDetails[0].DeviceModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TagDetails[0].NoOfPanicButton)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TagDetails[0].TaggingValidity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TagDetails[0].MobileNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.TagDetails) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChasisNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeviceIMEI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeviceUID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeviceModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfPanicButton)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaggingValidity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobileNumber)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.TaggingId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.TaggingId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.TaggingId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

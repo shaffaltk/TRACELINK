@@ -1,0 +1,234 @@
+﻿.blockquote-footer::before {
+    content: "";
+}
+
+.gbox {
+    background-color: #fbfbfb;
+}
+
+.gcard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fbfbfb;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+
+.head-icon-spacing {
+    margin-right: 10px;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #e0e0e0; /* Line separating tabs from content */
+}
+
+    .nav-tabs .nav-link {
+        border: none;
+        background-color: transparent;
+        color: #949494;
+        font-weight: normal;
+        padding: 10px 15px;
+        margin-right: 5px;
+        transition: color 0.3s;
+        position: relative; /* To position the underline */
+    }
+
+        .nav-tabs .nav-link:hover {
+            color: #20a8d8;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: #21263c;
+            font-weight: bold;
+            background-color: transparent;
+        }
+
+            /* Blue underline for active tab */
+            .nav-tabs .nav-link.active::after {
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background-color: #20a8d8;
+                border-radius: 3px 3px 0 0;
+            }
+
+/* Adding a border to the tab content */
+.tab-content {
+    border: 0px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 0px;
+    margin-top: 0px;
+}
+
+.tab-pane {
+    min-height: 200px; /* Optional: To give some space to the content area */
+}
+
+
+
+.d-flex {
+    display: flex;
+}
+
+.align-items-stretch {
+    align-items: stretch; /* Ensures equal height */
+}
+
+.gcard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.flex-column {
+    flex-grow: 1;
+}
+
+
+/* General link style for menu items */
+.menu-item {
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    /* Hover effect: Change background and text color */
+    .menu-item:hover {
+        text-decoration: none;
+        background-color: #20a8d8; /* Bootstrap primary blue */
+        color: white; /* Text color on hover */
+    }
+
+    /* Icon and text alignment */
+    .menu-item i {
+        margin-right: 8px; /* Space between icon and text */
+    }
+
+    /* Optional active state styling for current page (if needed) */
+    .menu-item.active {
+        background-color: #0056b3; /* A darker blue for active state */
+        color: white;
+    }
+
+
+
+a.selectedItem li  {
+    background-color: #20a8d857;
+}
+
+li.selectedItem {
+    background-color: #20a8d857;
+}
+
+.nav-item .nav-sub-link {
+    display: block;
+    padding: 0.5rem 1.5rem;
+}
+
+.bl_header_main{
+    font-weight:200;
+    background-color:rgba(0, 0, 0, 0.125)
+}
+
+.middlePanel{
+    overflow:scroll;
+    height: 100vh;
+}
+
+.hideme{
+    visibility:hidden;
+}
+
+/* use in reports like balance sheet*/
+td.ps-4::before {
+    content: "\2022"; /* Unicode for bullet */
+    margin-right: 10px; /* Adjust space between bullet and text */
+    color: black; /* Adjust the bullet color */
+    font-weight: bold;
+}
+
+.table-tr-report tbody tr:hover {
+    background-color: #f0f0f0;
+    cursor: auto;
+}
+
+.table-tr-report2 tbody tr:hover {
+    background-color: #20a8d852;
+    cursor: auto;
+}
+
+.workflow-container {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 80%; /* Increased max width for better centering */
+}
+
+.workflow-image {
+    width: 100%; /* Image will scale based on container size */
+    max-width: 1238px; /* Set the maximum width of the image */
+    height: auto; /* Maintain aspect ratio */
+    margin: 5px 0;
+}
+
+.module-details {
+    text-align: start;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+    .module-details ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        .module-details ul li {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+            .module-details ul li i {
+                color: #00bcd4;
+                margin-right: 10px;
+            }
+
+
+
+
+.del-note-card-headertext {
+    color: black; 
+}
+
+.blockquote-footer{
+    margin-bottom: 0px;
+}
+
+figure {
+    margin: 0 0 0rem;
+}
+
+
+.list-group-item {
+    border-radius: 4px;
+}
+
+.table.drowTable th, .table.drowTable td {
+    padding: 0.2rem;
+}
+
+.table th, .table td {
+    border-top: 0px;
+}

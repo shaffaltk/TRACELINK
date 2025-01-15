@@ -1,0 +1,75 @@
+﻿@page
+@model TraceLink.Pages.Tagging.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>TagDetails</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TagDetails.TaggingId" />
+            <div class="form-group">
+                <label asp-for="TagDetails.VehicleNumber" class="control-label"></label>
+                <input asp-for="TagDetails.VehicleNumber" class="form-control" />
+                <span asp-validation-for="TagDetails.VehicleNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.ChasisNumber" class="control-label"></label>
+                <input asp-for="TagDetails.ChasisNumber" class="form-control" />
+                <span asp-validation-for="TagDetails.ChasisNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.Rto" class="control-label"></label>
+                <input asp-for="TagDetails.Rto" class="form-control" />
+                <span asp-validation-for="TagDetails.Rto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.DeviceIMEI" class="control-label"></label>
+                <input asp-for="TagDetails.DeviceIMEI" class="form-control" />
+                <span asp-validation-for="TagDetails.DeviceIMEI" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.DeviceUID" class="control-label"></label>
+                <input asp-for="TagDetails.DeviceUID" class="form-control" />
+                <span asp-validation-for="TagDetails.DeviceUID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.DeviceModel" class="control-label"></label>
+                <input asp-for="TagDetails.DeviceModel" class="form-control" />
+                <span asp-validation-for="TagDetails.DeviceModel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.NoOfPanicButton" class="control-label"></label>
+                <input asp-for="TagDetails.NoOfPanicButton" class="form-control" />
+                <span asp-validation-for="TagDetails.NoOfPanicButton" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.TaggingValidity" class="control-label"></label>
+                <input asp-for="TagDetails.TaggingValidity" class="form-control" />
+                <span asp-validation-for="TagDetails.TaggingValidity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.MobileNumber" class="control-label"></label>
+                <input asp-for="TagDetails.MobileNumber" class="form-control" />
+                <span asp-validation-for="TagDetails.MobileNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

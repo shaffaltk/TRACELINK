@@ -1,0 +1,138 @@
+
+/* Flexbox container */
+.d-flex {
+    display: flex;
+}
+
+/* Sidebar container */
+.ast-tree-container {
+    flex: 0 0 auto; /* Fixed width for the sidebar */
+    background-color: #f8f9fa; /* Background color matching the sidebar */
+    box-shadow: 5px 0 15px rgb(52 52 52 / 29%);
+    height: 100vh;
+    padding-right: 0px;
+    margin-right: 0px;
+    z-index: 99;
+    overflow-y: auto;
+}
+
+/* Content container */
+.trzmain {
+    flex: 1; /* Takes up the remaining space */
+    padding-left: 0px; /*TODO: check later*/
+    background-color: #fbfbfb; /* Content background color */
+    overflow: scroll;
+    height: calc(100vh - 55px);
+    padding-bottom: 0px;
+}
+
+
+html {
+    font-size: 14px;
+}
+
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 0px;
+    overflow: scroll;
+}
+
+.select2-container .select2-selection__arrow {
+    display: none;
+}
+
+.select2-container {
+    width: 100% !important;
+}
+
+/* Customizing the card's shadow and border */
+.row.shadow-lg {
+    border-radius: 15px;
+}
+
+/* Ensuring the form input fields have proper focus styling */
+.form-control:focus {
+    box-shadow: none;
+    border-color: #007bff;
+}
+
+/* Custom styling for the login button */
+#login-submit {
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+    #login-submit:hover {
+        background-color: #0056b3;
+    }
+
+/* Customizing the image on the right */
+.img-fluid {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+/* Hover effect for links */
+a.text-muted:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.tableTotalText {
+    color: #888;
+    text-align: right;
+}
+
+.tableTotal {
+    text-align: left;
+    font-weight: bold;
+}
+
+.tlogo {
+    width: 200px;
+    background-color: #f0f3f5;
+    padding: 6px;
+}
+
+.btn-spacing {
+    margin-right: 30px;
+}
+.form-group {
+    margin-bottom: 1.5rem; /* Add consistent spacing */
+}
+
+
+
+.select2-container--default .select2-selection--single {
+    width: 100% !important; 
+    max-width: 100%; 
+    box-sizing: border-box; 
+}
+
+
+.select2-container .select2-selection--single {
+    height: calc(1.5em + 0.75rem + 2px); 
+ 
+    align-items: center;
+}
+
+.card {
+    overflow: hidden;
+}
+

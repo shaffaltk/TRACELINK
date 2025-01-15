@@ -1,0 +1,127 @@
+﻿@page
+@model TraceLink.Pages.Tagging.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>TagDetails</h4>
+<hr />
+<div class="row">
+
+
+    <ul class="nav nav-tabs" id="renewalTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="details-tab" data-bs-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Details</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="expense-tab" data-bs-toggle="tab" href="#expense" role="tab" aria-controls="expense" aria-selected="false">Add Expense</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="renewalTabsContent">
+        <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
+            <div class="row d-flex align-items-stretch h-100">
+                <div class="col-md-6 d-flex flex-column">
+
+                    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TagDetails.VehicleNumber" class="control-label"></label>
+                <input asp-for="TagDetails.VehicleNumber" class="form-control" />
+                <span asp-validation-for="TagDetails.VehicleNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.ChasisNumber" class="control-label"></label>
+                <input asp-for="TagDetails.ChasisNumber" class="form-control" />
+                <span asp-validation-for="TagDetails.ChasisNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.Rto" class="control-label"></label>
+                <input asp-for="TagDetails.Rto" class="form-control" />
+                <span asp-validation-for="TagDetails.Rto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.DeviceIMEI" class="control-label"></label>
+                <select asp-for="TagDetails.DeviceIMEI" class="Control-label">
+
+                <option value="">457845704270</option>
+
+                <option>ejsdjlsdjl</option>
+                </select>
+                <span asp-validation-for="TagDetails.DeviceIMEI" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.DeviceUID" class="control-label"></label>
+                <input asp-for="TagDetails.DeviceUID" class="form-control" />
+                <span asp-validation-for="TagDetails.DeviceUID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.DeviceModel" class="control-label"></label>
+                <input asp-for="TagDetails.DeviceModel" class="form-control" />
+                <span asp-validation-for="TagDetails.DeviceModel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.NoOfPanicButton" class="control-label"></label>
+                <input asp-for="TagDetails.NoOfPanicButton" class="form-control" />
+                <span asp-validation-for="TagDetails.NoOfPanicButton" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.TaggingValidity" class="control-label"></label>
+                <input asp-for="TagDetails.TaggingValidity" class="form-control" />
+                <span asp-validation-for="TagDetails.TaggingValidity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagDetails.MobileNumber" class="control-label"></label>
+                <input asp-for="TagDetails.MobileNumber" class="form-control" />
+                <span asp-validation-for="TagDetails.MobileNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        // Function to handle tab navigation
+        function navigateToTab(fromTabId, toTabId) {
+            document.getElementById(fromTabId).classList.remove('show', 'active');
+            document.getElementById(fromTabId).classList.add('fade');
+            document.getElementById(`${fromTabId}-tab`).classList.remove('active');
+            document.getElementById(`${fromTabId}-tab`).setAttribute('aria-selected', 'false');
+
+            document.getElementById(toTabId).classList.remove('fade');
+            document.getElementById(toTabId).classList.add('show', 'active');
+            document.getElementById(`${toTabId}-tab`).classList.add('active');
+            document.getElementById(`${toTabId}-tab`).setAttribute('aria-selected', 'true');
+        }
+
+        // Function to validate fields in the current tab
+        function validateCurrentTabFields(tabId) {
+            let isValid = true;
+            // Get all required fields in the tab
+            const requiredFields = document.querySelectorAll(`#${tabId} [required]`);
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    // Mark field as invalid
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    // Remove invalid class if field is valid
+                    field.classList.remove('is-invalid');
+                }
+            });
+
+            return isValid;
+        }
+        </script>
+}
