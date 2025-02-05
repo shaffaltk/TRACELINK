@@ -1,0 +1,76 @@
+﻿@page "/chat/{taggingRequestId:int}"
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@using Microsoft.JSInterop
+@using TraceLink.Models
+@using Microsoft.AspNetCore.SignalR.Client
+
+<h5>Chat</h5>
+<div id="chatWindow" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+    @foreach (var message in Messages)
+    {
+        <div class="mb-2">
+            <strong>@message.SenderRole (@message.SenderId):</strong>
+            <p>@message.Message</p>
+        </div>
+    }
+</div>
+
+<form @onsubmit="SendMessage">
+    <div class="input-group">
+        <textarea @bind="NewMessage" class="form-control" placeholder="Type your message..." required></textarea>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </div>
+</form>
+
+@code {
+    [Parameter]
+    public int TaggingRequestId { get; set; }
+
+    private List<ChatMessage> Messages = new();
+    private string NewMessage = string.Empty;
+
+    private HubConnection? _hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch existing messages from the server
+        Messages = await Http.GetFromJsonAsync<List<ChatMessage>>($"/api/chat/{TaggingRequestId}");
+
+        // Initialize SignalR connection
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/chatHub"))
+            .Build();
+
+        // Handle receiving messages
+        _hubConnection.On<string, string, string>("ReceiveMessage", (role, sender, message) =>
+        {
+            InvokeAsync(() =>
+            {
+                Messages.Add(new ChatMessage { SenderRole = role, SenderId = sender, Message = message });
+                StateHasChanged();
+            });
+        });
+
+        await _hubConnection.StartAsync();
+        await _hubConnection.SendAsync("JoinGroup", TaggingRequestId.ToString());
+    }
+
+    private async Task SendMessage()
+    {
+        if (!string.IsNullOrWhiteSpace(NewMessage))
+        {
+            await _hubConnection.SendAsync("SendMessage", TaggingRequestId.ToString(), NewMessage);
+            NewMessage = string.Empty;
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_hubConnection is not null)
+        {
+            await _hubConnection.DisposeAsync();
+        }
+    }
+}

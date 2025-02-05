@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using TraceLink.Data;
 using TraceLink.Models;
 
 namespace TraceLink.Pages.Tagging
@@ -18,11 +18,17 @@ namespace TraceLink.Pages.Tagging
             _context = context;
         }
 
-        public IList<TagDetails> TagDetails { get;set; } = default!;
+        // Holds the list of Tagging Requests
+        public IList<TaggingRequest> TaggingRequests { get; set; } = new List<TaggingRequest>();
 
         public async Task OnGetAsync()
         {
-            TagDetails = await _context.TagDetails.ToListAsync();
+            // Retrieve TaggingRequests from the database, including TaggingStatus if needed
+            TaggingRequests = await _context.TaggingRequests
+                                             .Include(t => t.TaggingStatus)
+                                            
+                                             .Include(t =>t.SubDealer)// Include related data, if applicable
+                                             .ToListAsync();
         }
     }
 }

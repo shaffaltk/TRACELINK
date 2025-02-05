@@ -1,0 +1,42 @@
+﻿@page
+@model TraceLink.Pages.SubDealers.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SubDealer[0].SubDealerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubDealer[0].Dealer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.SubDealer) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubDealerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dealer.DealerId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.SubDealerId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.SubDealerId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.SubDealerId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

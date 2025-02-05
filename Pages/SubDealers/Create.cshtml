@@ -1,0 +1,55 @@
+﻿@page
+@model TraceLink.Pages.SubDealers.CreateModel
+
+@{
+    ViewData["Title"] = "Create SubDealer";
+}
+
+<h1>Create SubDealer</h1>
+
+<h4>SubDealer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="SubDealer.SubDealerName" class="control-label"></label>
+                <input asp-for="SubDealer.SubDealerName" class="form-control" />
+                <span asp-validation-for="SubDealer.SubDealerName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SubDealer.DealerId" class="control-label"></label>
+                <select asp-for="SubDealer.DealerId" class="form-control" asp-items="ViewBag.DealerId"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserEmail" class="control-label">User Email</label>
+                <input asp-for="UserEmail" class="form-control" />
+                <span asp-validation-for="UserEmail" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserPassword" class="control-label">User Password</label>
+                <input asp-for="UserPassword" type="password" class="form-control" />
+                <span asp-validation-for="UserPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

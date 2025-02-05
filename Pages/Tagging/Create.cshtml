@@ -2,126 +2,255 @@
 @model TraceLink.Pages.Tagging.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Tagging Request";
 }
 
-<h1>Create</h1>
+<h3><i class="bi bi-plus-circle"></i> Create Tagging Request</h3>
 
-<h4>TagDetails</h4>
-<hr />
 <div class="row">
+    <div class="col-md-12">
+        <form method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
+            <!-- Tabs -->
+            <ul class="nav nav-tabs" id="taggingTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="details-tab" data-bs-toggle="tab" href="#details" role="tab">Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="documents-tab" data-bs-toggle="tab" href="#documents" role="tab">Documents</a>
+                </li>
+            </ul>
 
-    <ul class="nav nav-tabs" id="renewalTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="details-tab" data-bs-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Details</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" id="expense-tab" data-bs-toggle="tab" href="#expense" role="tab" aria-controls="expense" aria-selected="false">Add Expense</a>
-        </li>
-    </ul>
-    <div class="tab-content" id="renewalTabsContent">
-        <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
-            <div class="row d-flex align-items-stretch h-100">
-                <div class="col-md-6 d-flex flex-column">
+            <div class="tab-content" id="taggingTabsContent">
+                <!-- Details Tab -->
+                <div class="tab-pane fade show active" id="details" role="tabpanel">
+                    <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <div class="card mb-3 p-4">
+                                <!-- Tag Number (Read-Only) -->
+                                <div class="form-group row">
+                                    <label asp-for="TaggingRequest.TagNumber" class="col-sm-4 col-form-label">Tag Number</label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="TaggingRequest.TagNumber" class="form-control" readonly />
+                                    </div>
+                                </div>
 
-                    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="TagDetails.VehicleNumber" class="control-label"></label>
-                <input asp-for="TagDetails.VehicleNumber" class="form-control" />
-                <span asp-validation-for="TagDetails.VehicleNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TagDetails.ChasisNumber" class="control-label"></label>
-                <input asp-for="TagDetails.ChasisNumber" class="form-control" />
-                <span asp-validation-for="TagDetails.ChasisNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TagDetails.Rto" class="control-label"></label>
-                <input asp-for="TagDetails.Rto" class="form-control" />
-                <span asp-validation-for="TagDetails.Rto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TagDetails.DeviceIMEI" class="control-label"></label>
-                <select asp-for="TagDetails.DeviceIMEI" class="Control-label">
+                                @* Request Date *@
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Request Date</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly />
+                                    </div>
+                                </div>
 
-                <option value="">457845704270</option>
+                                @* IMEI Dropdown *@
+                                <div class="form-group row mt-3">
+                                    <label asp-for="TaggingRequest.IMEI" class="col-sm-4 col-form-label">IMEI</label>
+                                    <div class="col-sm-8">
+                                        <select asp-for="TaggingRequest.IMEI" class="form-select"  onchange="updateDeviceDetails(this.value)">
+                                            <option value="" selected>-- Select IMEI --</option>
+                                            @foreach (var imei in Model.AvailableIMEIs)
+                                            {
+                                                <option value="@imei">@imei</option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="TaggingRequest.IMEI" class="text-danger"></span>
+                                    </div>
+                                </div>
 
-                <option>ejsdjlsdjl</option>
-                </select>
-                <span asp-validation-for="TagDetails.DeviceIMEI" class="text-danger"></span>
+                                @* Device Details *@
+                                <div class="form-group row mt-3">
+                                    <label asp-for="TaggingRequest.DeviceModel" class="col-sm-4 col-form-label">Device Model</label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="TaggingRequest.DeviceModel" class="form-control" id="deviceModel" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mt-3">
+                                    <label asp-for="TaggingRequest.DeviceUID" class="col-sm-4 col-form-label">Device UID</label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="TaggingRequest.DeviceUID" class="form-control" id="deviceUID" readonly />
+                                    </div>
+                                </div>
+                                  @* Vehicle Details *@
+                                <div class="form-group row">
+                                    <label asp-for="TaggingRequest.VehicleNumber" class="col-sm-4 col-form-label">Vehicle Number</label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="TaggingRequest.VehicleNumber" type="text" class="form-control"  />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mt-3">
+                                    <label asp-for="TaggingRequest.ChassisNumber" class="col-sm-4 col-form-label">Chassis Number</label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="TaggingRequest.ChassisNumber" type="text" class="form-control" maxlength="5"  />
+                                    </div>
+                                </div>
+
+                               
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="card mb-3 p-4">
+
+                                 @* Tagging Validity *@
+                                <div class="form-group row mt-3">
+                                    <label asp-for="TaggingRequest.TaggingValidity" class="col-sm-4 col-form-label">Tagging Validity (Years)</label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="TaggingRequest.TaggingValidity" type="number" class="form-control"/>
+                                    </div>
+                                </div>
+                              
+
+                                @* Panic Buttons, Mobile Number, and RTO *@
+                                <div class="form-group row mt-3">
+                                    <label asp-for="TaggingRequest.NoOfPanicButtons" class="col-sm-4 col-form-label">Number of Panic Buttons</label>
+                                    <div class="col-sm-8">
+                                        <select asp-for="TaggingRequest.NoOfPanicButtons" class="form-select">
+                                            <option value="" selected>-- Select --</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mt-3">
+                                    <label asp-for="TaggingRequest.MobileNumber" class="col-sm-4 col-form-label">Mobile Number</label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="TaggingRequest.MobileNumber" type="tel" class="form-control"  required />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mt-3">
+                                    <label asp-for="TaggingRequest.RTO" class="col-sm-4 col-form-label">RTO</label>
+                                    <div class="col-sm-8">
+                                        <select asp-for="TaggingRequest.RTO" class="form-select" required>
+                                            <option value="" selected>-- Select RTO --</option>
+                                            <option value="RTO1">RTO1</option>
+                                            <option value="RTO2">RTO2</option>
+                                            <option value="RTO3">RTO3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                    <label asp-for="TaggingRequest.TaggingStatusId" class="col-sm-4 col-form-label">Tagging Status</label>
+                                    <div class="col-sm-8">
+                                        <select asp-for="TaggingRequest.TaggingStatusId" class="form-select" required>
+                                            <option value="" selected>-- Select Status --</option>
+                                            @foreach (var status in Model.TaggingStatuses)
+                                            {
+                                                <option value="@status.Id">@status.Name</option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="TaggingRequest.TaggingStatusId" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                    <label asp-for="TaggingRequest.Remarks" class="col-sm-4 col-form-label">Remarks</label>
+                    <div class="col-sm-8">
+                        <textarea asp-for="TaggingRequest.Remarks" class="form-control" rows="3" required></textarea>
+                        <span asp-validation-for="TaggingRequest.Remarks" class="text-danger"></span>
+                    </div>
+                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4 text-start">
+    <button type="button" class="btn btn-primary" onclick="goToDocumentsTab()">Next</button>
+</div>
+
+                </div>
+
+                <!-- Documents Tab -->
+                <div class="tab-pane fade" id="documents" role="tabpanel">
+                    <div class="card p-4 mt-3">
+                        <h5>Upload Documents</h5>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Type of Document</th>
+                                    <th>Upload</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>RC Book</td>
+                                    <td><input type="file" class="form-control-file" name="RCBookFile" /></td>
+                                </tr>
+                                <tr>
+                                    <td>KYC</td>
+                                    <td><input type="file" class="form-control-file" name="KYCFile" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Suraksha Mitr Certificate</td>
+                                    <td><input type="file" class="form-control-file" name="SurakshaMitrCertificateFile" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="form-group mt-4 text-start">
+                        <input type="submit" class="btn btn-success" value="Add">
+                        <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+                    </div>
+                   
+                </div>
+               
             </div>
-            <div class="form-group">
-                <label asp-for="TagDetails.DeviceUID" class="control-label"></label>
-                <input asp-for="TagDetails.DeviceUID" class="form-control" />
-                <span asp-validation-for="TagDetails.DeviceUID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TagDetails.DeviceModel" class="control-label"></label>
-                <input asp-for="TagDetails.DeviceModel" class="form-control" />
-                <span asp-validation-for="TagDetails.DeviceModel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TagDetails.NoOfPanicButton" class="control-label"></label>
-                <input asp-for="TagDetails.NoOfPanicButton" class="form-control" />
-                <span asp-validation-for="TagDetails.NoOfPanicButton" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TagDetails.TaggingValidity" class="control-label"></label>
-                <input asp-for="TagDetails.TaggingValidity" class="form-control" />
-                <span asp-validation-for="TagDetails.TaggingValidity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TagDetails.MobileNumber" class="control-label"></label>
-                <input asp-for="TagDetails.MobileNumber" class="form-control" />
-                <span asp-validation-for="TagDetails.MobileNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+          
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
+<script>
+    function goToDocumentsTab() {
+        // Check if there are any validation error messages
+        const validationErrors = document.querySelectorAll('.text-danger');
+        let hasErrors = false;
 
-@section Scripts {
-    <script>
-        // Function to handle tab navigation
-        function navigateToTab(fromTabId, toTabId) {
-            document.getElementById(fromTabId).classList.remove('show', 'active');
-            document.getElementById(fromTabId).classList.add('fade');
-            document.getElementById(`${fromTabId}-tab`).classList.remove('active');
-            document.getElementById(`${fromTabId}-tab`).setAttribute('aria-selected', 'false');
+        validationErrors.forEach(error => {
+            if (error.textContent.trim() !== '') {
+                hasErrors = true;
+            }
+        });
 
-            document.getElementById(toTabId).classList.remove('fade');
-            document.getElementById(toTabId).classList.add('show', 'active');
-            document.getElementById(`${toTabId}-tab`).classList.add('active');
-            document.getElementById(`${toTabId}-tab`).setAttribute('aria-selected', 'true');
+        // If no errors, navigate to the Documents tab
+        if (!hasErrors) {
+            document.getElementById('documents-tab').click();
+        } else {
+            alert("Please fix the validation errors before proceeding to the Documents tab.");
+        }
+    }
+</script>
+
+
+<script>
+    async function updateDeviceDetails(imei) {
+        if (!imei) {
+            // Clear the fields if no IMEI is selected
+            document.getElementById("deviceModel").value = "";
+            document.getElementById("deviceUID").value = "";
+            return;
         }
 
-        // Function to validate fields in the current tab
-        function validateCurrentTabFields(tabId) {
-            let isValid = true;
-            // Get all required fields in the tab
-            const requiredFields = document.querySelectorAll(`#${tabId} [required]`);
-
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    // Mark field as invalid
-                    field.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    // Remove invalid class if field is valid
-                    field.classList.remove('is-invalid');
-                }
-            });
-
-            return isValid;
+        try {
+            const response = await fetch(`/Tagging/GetDeviceDetails?imei=${imei}`);
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById("deviceModel").value = data.deviceModel || "";
+                document.getElementById("deviceUID").value = data.deviceUID || "";
+            } else {
+                console.error("Failed to fetch device details.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
         }
-        </script>
-}
+    }
+</script>

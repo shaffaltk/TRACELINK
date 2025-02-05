@@ -1,73 +1,161 @@
-﻿@page
+﻿@page "{id:int}"
 @model TraceLink.Pages.Tagging.DetailsModel
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Tagging Request Details";
 }
 
-<h1>Details</h1>
+<h3><i class="bi bi-eye"></i> Tagging Request Details</h3>
 
-<div>
-    <h4>TagDetails</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TagDetails.VehicleNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TagDetails.VehicleNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TagDetails.ChasisNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TagDetails.ChasisNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TagDetails.Rto)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TagDetails.Rto)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TagDetails.DeviceIMEI)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TagDetails.DeviceIMEI)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TagDetails.DeviceUID)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TagDetails.DeviceUID)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TagDetails.DeviceModel)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TagDetails.DeviceModel)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TagDetails.NoOfPanicButton)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TagDetails.NoOfPanicButton)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TagDetails.TaggingValidity)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TagDetails.TaggingValidity)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TagDetails.MobileNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TagDetails.MobileNumber)
-        </dd>
-    </dl>
+<div class="row">
+    <div class="col-md-12">
+        <!-- Tabs -->
+        <ul class="nav nav-tabs" id="detailsTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="details-tab" data-bs-toggle="tab" href="#details" role="tab">Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="documents-tab" data-bs-toggle="tab" href="#documents" role="tab">Documents</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="chat-tab" data-bs-toggle="tab" href="#chat" role="tab">Chat</a>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="detailsTabsContent">
+            <!-- Details Tab -->
+            <div class="tab-pane fade show active" id="details" role="tabpanel">
+                <div class="card p-4 mt-3">
+                    <h5>Request Information</h5>
+                    <dl class="row">
+                        <dt class="col-sm-3">Request Date</dt>
+                        <dd class="col-sm-9">@Model.TaggingRequest.RequestDate.ToString("yyyy-MM-dd")</dd>
+
+                        <dt class="col-sm-3">IMEI</dt>
+                        <dd class="col-sm-9">@Model.TaggingRequest.IMEI</dd>
+
+                        <dt class="col-sm-3">Device Model</dt>
+                        <dd class="col-sm-9">@Model.TaggingRequest.DeviceModel</dd>
+
+                        <dt class="col-sm-3">Device UID</dt>
+                        <dd class="col-sm-9">@Model.TaggingRequest.DeviceUID</dd>
+
+                        <dt class="col-sm-3">Vehicle Number</dt>
+                        <dd class="col-sm-9">@Model.TaggingRequest.VehicleNumber</dd>
+
+                        <dt class="col-sm-3">Chassis Number</dt>
+                        <dd class="col-sm-9">@Model.TaggingRequest.ChassisNumber</dd>
+
+                        <dt class="col-sm-3">Tagging Validity</dt>
+                        <dd class="col-sm-9">@Model.TaggingRequest.TaggingValidity Years</dd>
+
+                        <dt class="col-sm-3">Number of Panic Buttons</dt>
+                        <dd class="col-sm-9">@Model.TaggingRequest.NoOfPanicButtons</dd>
+
+                        <dt class="col-sm-3">Mobile Number</dt>
+                        <dd class="col-sm-9">@Model.TaggingRequest.MobileNumber</dd>
+
+                        <dt class="col-sm-3">RTO</dt>
+                        <dd class="col-sm-9">@Model.TaggingRequest.RTO</dd>
+
+                        <dt class="col-sm-3">Remarks</dt>
+                        <dd class="col-sm-9">@Model.TaggingRequest.Remarks</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <!-- Documents Tab -->
+            <div class="tab-pane fade" id="documents" role="tabpanel">
+                <div class="card p-4 mt-3">
+                    <h5>Uploaded Documents</h5>
+                    @if (Model.Documents != null && Model.Documents.Any())
+                    {
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Document Type</th>
+                                    <th>File Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var document in Model.Documents)
+                                {
+                                    <tr>
+                                        <td>@document.DocumentType</td>
+                                        <td>@document.FileName</td>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" href="@document.FilePath" target="_blank">
+                                                <i class="bi bi-eye"></i> View
+                                            </a>
+                                            <a class="btn btn-success btn-sm" href="@document.FilePath" download>
+                                                <i class="bi bi-download"></i> Download
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No documents uploaded for this request.</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Chat Tab (Using ChatRazor) -->
+            <div class="tab-pane fade" id="chat" role="tabpanel">
+                <div class="card p-4 mt-3">
+                    <h5>Chat</h5>
+                    <component type="typeof(Chat)" param-TaggingRequestId="@Model.TaggingRequest.Id" render-mode="ServerPrerendered" />
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.TagDetails.TaggingId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
-</div>
+
+
+<!-- SignalR Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+<script>
+    // Initialize SignalR connection
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chatHub")
+        .build();
+
+    // Start the connection
+    connection.start()
+        .then(() => {
+            console.log("SignalR Connected.");
+            const taggingRequestId = document.getElementById("taggingRequestId").value;
+            connection.invoke("JoinGroup", taggingRequestId); // Join the group for this tagging request
+        })
+        .catch(err => console.error("SignalR Connection Error: ", err));
+
+    // Handle receiving messages
+    connection.on("ReceiveMessage", (userRole, userName, message) => {
+        const chatWindow = document.getElementById("chatWindow");
+        const messageElement = document.createElement("div");
+        messageElement.classList.add("mb-2");
+        messageElement.innerHTML = `
+                <strong>${userRole} (${userName}):</strong>
+                <p>${message}</p>
+            `;
+        chatWindow.appendChild(messageElement);
+        chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to the latest message
+    });
+
+    // Handle sending messages
+    document.getElementById("chatForm").addEventListener("submit", event => {
+        event.preventDefault();
+        const taggingRequestId = document.getElementById("taggingRequestId").value;
+        const message = document.getElementById("messageInput").value.trim();
+
+        if (message) {
+            connection.invoke("SendMessage", taggingRequestId, message)
+                .catch(err => console.error("Error sending message: ", err));
+            document.getElementById("messageInput").value = ""; // Clear the input field
+        }
+    });
+</script>

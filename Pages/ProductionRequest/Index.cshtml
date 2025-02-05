@@ -1,0 +1,70 @@
+﻿@page
+@model TraceLink.Pages.ProductionRequests.IndexModel
+
+@{
+    ViewData["Title"] = "Production Requests";
+}
+
+<h3><i class="bi bi-list"></i> Production Requests</h3>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<div>
+    <table id="xTable" class="table display">
+        <thead>
+            <tr>
+                <th>PR Number</th>
+                <th>Vendor</th>
+                <th>Request Date</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var request in Model.ProductionRequests)
+            {
+                <tr>
+                    <td>@request.PrNumber</td>
+                    <td>@request.Vendor</td>
+                    <td>@request.RequestDate.ToString("yyyy-MM-dd")</td>
+                    <td>@request.Product</td>
+                    <td>@request.Quantity</td>
+                    <td><span class="badge bg-warning text-dark">@request.Status</span></td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="id" value="@request.Id" />
+                            <button type="submit" asp-page-handler="Accept" class="btn btn-sm btn-success">
+                                <i class="bi bi-check-circle"></i> Accept
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/colreorder/1.6.2/js/dataTables.colReorder.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#xTable').DataTable({
+                responsive: true,
+                rowReorder: {
+                    selector: 'tr'  // Enables full row dragging
+                },
+                colReorder: true,  // Enables column reordering
+                order: [],  // Default order (disable auto-sorting)
+                columnDefs: [
+                    { orderable: false, targets: 6 }  // Disable sorting on the Actions column
+                ]
+            });
+        });
+    </script>
+}

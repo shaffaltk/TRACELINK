@@ -2,83 +2,64 @@
 @model TraceLink.Pages.Tagging.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tagging Requests Index";
 }
 
-<h1>Index</h1>
+<h1>Tagging Requests</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Add New </a>
 </p>
-<table class="table">
+
+<table class="table display" id="xTable">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TagDetails[0].VehicleNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TagDetails[0].ChasisNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TagDetails[0].Rto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TagDetails[0].DeviceIMEI)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TagDetails[0].DeviceUID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TagDetails[0].DeviceModel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TagDetails[0].NoOfPanicButton)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TagDetails[0].TaggingValidity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TagDetails[0].MobileNumber)
-            </th>
-            <th></th>
+
+            <th>@Html.DisplayNameFor(model => model.TaggingRequests[0].RequestDate)</th>
+            <th>@Html.DisplayNameFor(model => model.TaggingRequests[0].TagNumber)</th>
+            <th>@Html.DisplayNameFor(model => model.TaggingRequests[0].VehicleNumber)</th>
+       
+            <th>@Html.DisplayNameFor(model => model.TaggingRequests[0].IMEI)</th>
+            
+            <th>@Html.DisplayNameFor(model => model.TaggingRequests[0].RTO)</th>
+            <th>@Html.DisplayNameFor(model => model.TaggingRequests[0].TaggingStatus)</th>
+
+           
+           
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.TagDetails) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.VehicleNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChasisNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeviceIMEI)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeviceUID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeviceModel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NoOfPanicButton)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaggingValidity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MobileNumber)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.TaggingId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.TaggingId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.TaggingId">Delete</a>
-            </td>
-        </tr>
-}
+        @if (Model.TaggingRequests != null && Model.TaggingRequests.Any())
+        {
+            @foreach (var item in Model.TaggingRequests)
+            {
+                <tr>
+                    <td>@item.RequestDate.ToString("yyyy-MM-dd")</td>
+                    <td>@Html.DisplayFor(modelItem => item.TagNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.VehicleNumber)</td>
+                   
+                    <td>@Html.DisplayFor(modelItem => item.IMEI)</td>
+                   
+                 
+                   
+                 
+                    <td>@Html.DisplayFor(modelItem => item.RTO)</td>
+                    
+                    <td>@Html.DisplayFor(modelItem => item.Remarks)</td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+<a asp-page="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm"> Details </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="12" class="text-center">No tagging requests found.</td>
+            </tr>
+        }
     </tbody>
 </table>

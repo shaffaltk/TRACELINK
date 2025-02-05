@@ -1,0 +1,78 @@
+﻿@page "{id:int}"
+@model TraceLink.Pages.Items.DetailsModel
+
+@{
+    ViewData["Title"] = "Item Details";
+}
+
+<h3><i class="bi bi-info-circle"></i> Item Details</h3>
+
+<div class="card p-4">
+    <!-- Item Information -->
+    <h5 class="mb-3"><i class="bi bi-box"></i> Item Information</h5>
+    <dl class="row">
+        <dt class="col-sm-3">Item Name:</dt>
+        <dd class="col-sm-9">@Model.Item.Name</dd>
+
+        <dt class="col-sm-3">Category:</dt>
+        <dd class="col-sm-9">@Model.Item.Category</dd>
+
+        <dt class="col-sm-3">Tagging Date:</dt>
+        <dd class="col-sm-9">@Model.Item.TaggingDate?.ToString("yyyy-MM-dd")</dd>
+    </dl>
+
+    <!-- Used Items -->
+    <h5 class="mt-4"><i class="bi bi-layers"></i> Used Items</h5>
+    <ul>
+        @if (Model.UsedItems.Any())
+        {
+            @foreach (var usedItem in Model.UsedItems)
+            {
+                <li>@usedItem.Name</li>
+            }
+        }
+        else
+        {
+            <li>No used items</li>
+        }
+    </ul>
+
+    <!-- Item Parameters -->
+    <h5 class="mt-4"><i class="bi bi-list-check"></i> Parameters</h5>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Parameter Name</th>
+                <th>Data Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Parameters.Any())
+            {
+                @foreach (var param in Model.Parameters)
+                {
+                    <tr>
+                        <td>@param.ParameterName</td>
+                        <td>@param.DataType</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="2" class="text-center">No parameters added</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Add Parameter Button -->
+    <div class="col-12 text-left mt-3">
+        <a asp-page="/ItemParameters/Create" asp-route-id="@Model.Item.Id" class="btn btn-sm btn-primary">
+            <i class="bi bi-plus-circle"></i> Add Parameter
+        </a>
+        <a asp-page="/Items/Index" class="btn btn-sm btn-secondary">
+            <i class="bi bi-arrow-left"></i> Back to List
+        </a>
+    </div>
+</div>

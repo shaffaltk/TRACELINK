@@ -1,0 +1,110 @@
+﻿@page
+@model TraceLink.Pages.ItemParameters.AddParameterModel
+@{
+    ViewData["Title"] = "Add Parameters";
+}
+
+<h3><i class="bi bi-plus-circle"></i> Add Parameters to @Model.Item.Name</h3>
+
+<div class="row d-flex align-items-stretch h-100">
+    <div class="col-md-12 d-flex flex-column">
+        <form method="post" class="form-horizontal">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Item Name (Read-Only) -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Item Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="@Model.Item.Name" readonly />
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Parameters Section -->
+                    <div id="parametersContainer" class="mt-3"></div>
+
+                    <!-- Add Parameter Button -->
+                    <div class="form-group row mt-3">
+                        <div class="col-12 text-left">
+                            <button type="button" id="addParameter" class="btn btn-primary">Add Parameter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden Input for Storing Parameters -->
+            <input type="hidden" id="parametersInput" name="SerializedParameters" />
+
+            <!-- Buttons Section -->
+            <div class="form-group row mt-4">
+                <div class="col-12 text-left">
+                    <input type="submit" value="Save Parameters" class="btn btn-success" />
+                    <a asp-page="/Items/Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let parameterCount = 0;
+        let parameters = [];
+
+        document.getElementById("addParameter").addEventListener("click", function () {
+            const container = document.getElementById("parametersContainer");
+
+            const row = document.createElement("div");
+            row.className = "form-group row align-items-center mt-2";
+            row.id = `parameter-row-${parameterCount}`;
+
+            row.innerHTML = `
+                <label class="col-sm-3 col-form-label">Parameter Name</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control parameter-name" data-index="${parameterCount}" placeholder="Enter name" required />
+                </div>
+
+                <label class="col-sm-2 col-form-label">Data Type</label>
+                <div class="col-sm-2">
+                    <select class="form-select parameter-type" data-index="${parameterCount}">
+                        <option value="string">String</option>
+                        <option value="number">Number</option>
+                        <option value="boolean">Boolean</option>
+                        <option value="date">Date</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-danger remove-parameter" data-row="parameter-row-${parameterCount}">Remove</button>
+                </div>
+            `;
+
+            container.appendChild(row);
+            parameterCount++;
+            updateParameters();
+        });
+
+        document.getElementById("parametersContainer").addEventListener("input", function (event) {
+            updateParameters();
+        });
+
+        document.getElementById("parametersContainer").addEventListener("click", function (event) {
+            if (event.target.classList.contains("remove-parameter")) {
+                const rowId = event.target.getAttribute("data-row");
+                document.getElementById(rowId).remove();
+                updateParameters();
+            }
+        });
+
+        function updateParameters() {
+            parameters = [];
+            document.querySelectorAll(".parameter-name").forEach((input, index) => {
+                const typeSelect = document.querySelector(`.parameter-type[data-index="${index}"]`);
+                parameters.push({ name: input.value.trim(), type: typeSelect.value });
+            });
+
+            document.getElementById("parametersInput").value = JSON.stringify(parameters);
+        }
+    </script>
+}

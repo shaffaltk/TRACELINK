@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using TraceLink.Data;
 using TraceLink.Models;
 
-namespace TraceLink.Pages.Tagging
+namespace TraceLink.Pages.taggings
 {
     public class DeleteModel : PageModel
     {

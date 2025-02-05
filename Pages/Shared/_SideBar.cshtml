@@ -1,85 +1,495 @@
+
+<style>
+    .nav-sub-link {
+        color: #ffffff; /* Default text color to white */
+        padding: 0px 20px;
+        transition: background-color 0.3s ease;
+        border-radius: 4px;
+        display: flex;
+        min-height: 50px;
+        align-items: center;
+        text-decoration: none; /* Remove underline by default */
+        position: relative; /* For positioning child elements */
+    }
+
+        /* Hover effect for the entire link - background color changes */
+        .nav-sub-link:hover {
+            background-color: #28acdc; /* Highlight background on hover */
+            text-decoration: none; /* No underline on hover */
+        }
+
+    /* Initially hide the plus icon */
+    .plus-icon-link {
+        visibility: hidden; /* Start as hidden */
+        opacity: 0; /* Invisible */
+        position: absolute;
+        right: 20px; /* Position it at the right of the nav-sub-link */
+        transition: visibility 0.3s ease, opacity 0.3s ease; /* Smooth appearance */
+    }
+
+    /* When hovering over the nav-sub-link, show the plus icon */
+    .nav-sub-link:hover .plus-icon-link {
+        visibility: visible; /* Make the plus icon visible */
+        opacity: 1; /* Fully visible */
+    }
+
+    /* Set plus icon initial color to gray */
+    .plus-icon-link i {
+        color: gray; /* Gray initially */
+        transition: color 0.3s ease; /* Smooth color change */
+    }
+
+    /* Change plus icon color to white when hovered */
+    .plus-icon-link:hover i {
+        /* Change icon color to white */
+        box-shadow: 0 0 0px 4px white; /* Add a glowing white circle effect */
+        border-radius: 50%; /* Make it circular */
+        /* Add padding inside the circle */
+        background-color: white; /* Add a white background for the circle */
+    }
+
+
+    /* Ensure no underline and no color change for the text */
+    .text-link {
+        flex-grow: 1; /* Make the text take up remaining space */
+        color: #ffffff; /* Text color white */
+        text-decoration: none; /* No underline */
+    }
+
+        .text-link:hover {
+            color: #ffffff; /* Keep text color white on hover */
+            text-decoration: none; /* No underline on hover */
+        }
+
+
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 <div class="sidebar">
     <nav class="sidebar-nav">
         <ul class="nav">
             <li class="nav-item">
                 <a class="nav-link" href="/index">
-                    <i class="nav-icon fa fa-home"></i> Home
+                    <i class="nav-icon fa fa-home"></i> Dashboard
                 </a>
             </li>
-         
+            
+
             <li class="nav-item nav-dropdown">
+     
+                
+
+                    
+                
+            </li>
+
+
+            <li class="nav-item nav-dropdown">
+                
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    <i class="nav-icon fa fa-tasks"></i> Reports
+                    <i class="nav-icon bi bi-clipboard"></i> Tagging
                 </a>
+                           
                 <ul class="nav-dropdown-items">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Reports/SalesSummaryResults">
-                            <i class="nav-icon fa fa-minus"></i> Sales Summary
-                        </a>
+
+                    <li class="nav-item ">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/Tagging/Index" class="text-link" style="flex: 3;">
+                                Tagging
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/Tagging/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </li>
+                     <li class="nav-item ">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/VehicleRenewal/Index" class="text-link" style="flex: 3;">
+                                Tickets
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/VehicleRenewal/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Attendance Item -->
+
+                </ul>
+            </li>
+
+
+
+
+            <li class="nav-item nav-dropdown">
+             
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon bi-card-list"></i> Item
+                </a>
+                            
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item ">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+
+                            <a href="/Items/Index" class="text-link" style="flex: 3;">
+                                Item
+
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/Items/Item" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
                     </li>
                     
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="Reports/UnsubscribedCasesBilling">
-                            <i class="nav-icon fa fa-minus"></i> Unsubscribed Billing
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                       <a class="nav-link" href="Reports/PartnerWiseSales">
-                           <i class="nav-icon fa fa-minus"></i>Sales Details
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Reports/PartnerCashIn">
-                        <i class="nav-icon fa fa-minus"></i>Payments
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Reports/ActiveSubscriptionBilling">
-                        <i class="nav-icon fa fa-minus"></i>Active Billing
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Reports/Statement">
-                        <i class="nav-icon fa fa-minus"></i>Statements
-                        </a>
-                    </li>
+
 
                 </ul>
             </li>
 
             <li class="nav-item nav-dropdown">
+                
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    <i class="nav-icon fa fa-line-chart"></i> Analytics
+                    <i class="nav-icon bi bi-map"></i> Production 
                 </a>
+                            
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Analytics/">
-                            <i class="nav-icon fa fa-minus"></i> ...
+                        <a class="nav-link nav-sub-link" href="/ProductionRequest/Index">
+                            <i class="nav-icon fa fa-minus"></i>Requests
+                        </a>
+                        <a href="/ProductionRequests/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                            <i class="fa fa-plus"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Analytics/">
-                            <i class="nav-icon fa fa-minus"></i> ...
-                        </a>
+                    
+                   
+
+
+                </ul>
+            </li>
+
+
+            <li class="nav-item nav-dropdown">
+                 @if (User.IsInRole("SuperAdmin") || User.IsInRole("Logistic Manager"))
+                            {
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon bi bi-fuel-pump-fill"></i> Fuel
+                            
+
+                </a>
+                            }
+                <ul class="nav-dropdown-items">
+                    <!-- Driver Allocation Item -->
+                    <li class="nav-item ">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/Fuel/Report/Index" class="text-link" style="flex: 3;">
+                                Fuel Report
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/Fuel/Report/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
                     </li>
+
+                    <!-- Attendance Item -->
+
+                </ul>
+            </li>
+
+
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon bi bi-clipboard"></i> Requests
+                </a>
+                <ul class="nav-dropdown-items">
+                    <!-- Driver Allocation Item -->
+                    <li class="nav-item ">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/Service Request/Index" class="text-link" style="flex: 3;">
+                                Service Request
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/Service Request/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Attendance Item -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/Analytics/">
-                            <i class="nav-icon fa fa-minus"></i> ...
-                        </a>
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/Vehicle Request/Index" class="text-link" style="flex: 3;">
+                                Vehicle Request
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/Vehicle Request/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
                     </li>
                 </ul>
             </li>
 
-            <li class="nav-title">Admin</li>
 
-
-        
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    <i class="nav-icon fa fa-cogs"></i> Config
+                    <i class="nav-icon bi bi-people-fill"></i> Employees
                 </a>
+                <ul class="nav-dropdown-items">
+                    <!-- Driver Allocation Item -->
+                    <li class="nav-item ">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/Driver Allocation/Index" class="text-link" style="flex: 3;">
+                                Driver Allocation
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/Driver Allocation/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Attendance Item -->
+                    <li class="nav-item">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/Attendance/Index" class="text-link" style="flex: 3;">
+                                Attendance
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/Attendance/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </li>
+
+
+            <li class="nav-item nav-dropdown">
+                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Logistic Manager"))
+                            {
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon bi bi-archive"></i>Others
+                </a>
+                            }
+                <ul class="nav-dropdown-items">
+                    <!-- Driver Allocation Item -->
+                    <li class="nav-item ">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/Insurance/Index" class="text-link" style="flex: 3;">
+                                Insurance Claim
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/Insurance/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Attendance Item -->
+                    <li class="nav-item">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/MVD/Index" class="text-link" style="flex: 3;">
+                                MVD Fine
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/MVD/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/Legal/Index" class="text-link" style="flex: 3;">
+                                Legal FollowUp
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/Legal/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/Warranty/Index" class="text-link" style="flex: 3;">
+                                Warranty
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/Warranty/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/Record Income/Create" class="text-link" style="flex: 3;">
+                               Record Income
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                          @*   <a href="/Warranty/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a> *@
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/Record Expense/Create" class="text-link" style="flex: 3;">
+                                Record Expense
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                          @*   <a href="/Warranty/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a> *@
+                        </div>
+                    </li>
+                   @*  <li class="nav-item">
+                        <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                            <!-- Left side for text (3/4 width) -->
+                            <a href="/Bay/Index" class="text-link" style="flex: 3;">
+                                Bay
+                            </a>
+                            <!-- Right side for the plus icon (1/4 width) -->
+                            <a href="/Bay/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </li> *@
+                </ul>
+            </li>
+
+
+             
+            
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
+                        <i class="nav-icon bi bi-gear"></i> Config
+                    </a>
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                                <a class="text-link" href="/employee/Index">
+                                    Employees
+                                </a>
+                                <a href="/employee/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </li>
+                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Logistic Manager")) // Check for either role
+                        {
+                       /* <li class="nav-item">
+                            <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                                <a class="text-link" href="/ListBranch">
+                                    Branch
+                                </a>
+                                <a href="/CreateBranch" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </li>*/
+                        <li class="nav-item">
+                            <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                                <a class="text-link" href="/Parts/Index">
+                                    Parts
+                                </a>
+                                <a href="/Parts/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                                <a class="text-link" href="/Particular/Index">
+                                    Particulars
+                                </a>
+                                <a href="/Particular/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                                <a class="text-link" href="/ServiceCenters/Index">
+                                    Service Centers
+                                </a>
+                                <a href="/ServiceCenters/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                                <a class="text-link" href="/Colours/Index">
+                                    Colours
+                                </a>
+                                <a href="/Colours/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                                <a class="text-link" href="/Manufacturer/Index">
+                                    Manufacturers
+                                </a>
+                                <a href="/Manufacturer/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-sub-link d-flex justify-content-between align-items-center">
+                                <a class="text-link" href="/Capacity/Index">
+                                    Vehicle Capacity
+                                </a>
+                                <a href="/Capacity/Create" class="plus-icon-link" style="flex: 1; text-align: right;">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </li>
+                        }
+
+               
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Dealers/Index">
+                                    <i class="nav-icon fa fa-user"></i> Dealer
+                                </a>
+                            </li>
+
+                        
+                        
+                 
+                            <li class="nav-item">
+                                <a class="nav-link" href="/SubDealers/Index">
+                                    <i class="nav-icon fa fa-user"></i> SubDealer
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </li>
+            
+
+
+            
 
         </ul>
     </nav>
